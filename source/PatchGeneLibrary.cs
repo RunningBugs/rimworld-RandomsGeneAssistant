@@ -70,13 +70,43 @@ namespace RandomsGeneAssistant
             base.PreClose();
         }
 
+        private int GetSelectedTotalCpx()
+        {
+            int totalCpx = 0;
+            foreach (var gene in SettingsRef.GetGeneNotIgnore())
+            {
+                totalCpx += gene.biostatCpx;
+            }
+            return totalCpx;
+        }
+
+        private int GetSelectedTotalMet()
+        {
+            int totalMet = 0;
+            foreach (var gene in SettingsRef.GetGeneNotIgnore())
+            {
+                totalMet += gene.biostatMet;
+            }
+            return totalMet;
+        }
+
+        private int GetSelectedTotalArchite()
+        {
+            int totalArc = 0;
+            foreach (var gene in SettingsRef.GetGeneNotIgnore())
+            {
+                totalArc += gene.biostatArc;
+            }
+            return totalArc;
+        }
+
         public override void DoWindowContents(Rect inRect)
         {
             inRect.yMax -= CloseButSize.y;
             var rect = inRect;
             rect.xMin += 34f;
             Text.Font = GameFont.Medium;
-            Widgets.Label(rect, "Gene Library");
+            Widgets.Label(rect, $"Gene Library (total complexity: {GetSelectedTotalCpx()}, total metabolism: {GetSelectedTotalMet()}, total archite capsules: {GetSelectedTotalArchite()})");
             Text.Font = GameFont.Small;
             GUI.color = Color.white;
             inRect.yMin += 34f;

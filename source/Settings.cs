@@ -62,7 +62,7 @@ namespace RandomsGeneAssistant
             listingStandard.CheckboxLabeled("Override xenogerm sorting", ref settings.overrideSorting, "Sorts the genes in the gene assembler menu by the most impactful gene in a set, rather than the first gene.");
             listingStandard.CheckboxLabeled("Sort single genes first", ref settings.singlesFirst, "Sorts single genes to be first in the gene assembler.");
 
-            listingStandard.Label($"Background Saturation: {(int) Math.Round(settings.backgroundSaturation * 100)}%");
+            listingStandard.Label($"Background Saturation: {(int)Math.Round(settings.backgroundSaturation * 100)}%");
             settings.backgroundSaturation = listingStandard.Slider(settings.backgroundSaturation, 0f, 1f);
 
             listingStandard.CheckboxLabeled("Alternate colors", ref settings.overrideColors, "Activates an alternate color scheme.");
@@ -143,6 +143,16 @@ namespace RandomsGeneAssistant
                 }
             }
             return ignoredGenes_;
+        }
+
+        public static HashSet<GeneDef> GetGeneNotIgnore()
+        {
+            HashSet<GeneDef> ignores = new HashSet<GeneDef>();
+            if (ignoredGenes_ == null)
+            {
+                ignores = GetGeneIgnore();
+            }
+            return GeneUtility.GenesInOrder.Except(ignores).ToHashSet();
         }
     }
 }

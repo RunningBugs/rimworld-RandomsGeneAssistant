@@ -1,2 +1,7 @@
 
 1.4/assemblies/0Harmony.dll
+.vs/
+obj/
+.vscode/
+Directory.Build.props
+Directory.Build.targets

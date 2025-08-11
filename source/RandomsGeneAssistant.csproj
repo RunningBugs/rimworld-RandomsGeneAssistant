@@ -13,12 +13,12 @@
 
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>C:\Program Files\Steam\steamapps\common\RimWorld\Mods\RandomsGeneAssistant\1.6\Assemblies</OutputPath>
+    <OutputPath>../1.6\Assemblies</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>C:\Program Files\Steam\steamapps\common\RimWorld\Mods\RandomsGeneAssistant\1.6\Assemblies</OutputPath>
+    <OutputPath>../1.6\Assemblies</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>none</DebugType>
     <DebugSymbols>false</DebugSymbols>
