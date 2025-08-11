@@ -147,11 +147,7 @@ namespace RandomsGeneAssistant
 
         public static HashSet<GeneDef> GetGeneNotIgnore()
         {
-            HashSet<GeneDef> ignores = new HashSet<GeneDef>();
-            if (ignoredGenes_ == null)
-            {
-                ignores = GetGeneIgnore();
-            }
+            HashSet<GeneDef> ignores = GetGeneIgnore();
             return GeneUtility.GenesInOrder.Except(ignores).ToHashSet();
         }
     }

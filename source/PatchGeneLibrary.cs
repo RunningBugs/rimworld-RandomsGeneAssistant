@@ -106,10 +106,13 @@ namespace RandomsGeneAssistant
             var rect = inRect;
             rect.xMin += 34f;
             Text.Font = GameFont.Medium;
-            Widgets.Label(rect, $"Gene Library (total complexity: {GetSelectedTotalCpx()}, total metabolism: {GetSelectedTotalMet()}, total archite capsules: {GetSelectedTotalArchite()})");
+            Widgets.Label(rect, $"Gene Library");
+            var titleOffset = Text.CalcHeight("Gene Library", rect.width) + 4f;
             Text.Font = GameFont.Small;
+            rect.yMin += titleOffset;
+            Widgets.Label(rect, $"total complexity: {GetSelectedTotalCpx()}, total metabolism: {GetSelectedTotalMet()}, total archite capsules: {GetSelectedTotalArchite()}");
             GUI.color = Color.white;
-            inRect.yMin += 34f;
+            inRect.yMin += 34f + 30f;
             var zero = Vector2.zero;
             DrawGenesInfo(inRect, InitialSize.y, ref zero, ref scrollPosition);
             float sep = (inRect.width - (CloseButSize.x) * 5) / 4f;
