@@ -4,6 +4,8 @@ using Verse;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace RandomsGeneAssistant
 {
@@ -72,32 +74,26 @@ namespace RandomsGeneAssistant
 
         private int GetSelectedTotalCpx()
         {
-            int totalCpx = 0;
-            foreach (var gene in SettingsRef.GetGeneNotIgnore())
-            {
-                totalCpx += gene.biostatCpx;
-            }
-            return totalCpx;
+            var selectedSet = SettingsRef.GetGeneNotIgnore();
+            var ordered = GeneUtility.GenesInOrder.Where(g => selectedSet.Contains(g)).ToList();
+            var activated = ordered.NonOverriddenGenes(false);
+            return activated.Sum(g => g.biostatCpx);
         }
 
         private int GetSelectedTotalMet()
         {
-            int totalMet = 0;
-            foreach (var gene in SettingsRef.GetGeneNotIgnore())
-            {
-                totalMet += gene.biostatMet;
-            }
-            return totalMet;
+            var selectedSet = SettingsRef.GetGeneNotIgnore();
+            var ordered = GeneUtility.GenesInOrder.Where(g => selectedSet.Contains(g)).ToList();
+            var activated = ordered.NonOverriddenGenes(false);
+            return activated.Sum(g => g.biostatMet);
         }
 
         private int GetSelectedTotalArchite()
         {
-            int totalArc = 0;
-            foreach (var gene in SettingsRef.GetGeneNotIgnore())
-            {
-                totalArc += gene.biostatArc;
-            }
-            return totalArc;
+            var selectedSet = SettingsRef.GetGeneNotIgnore();
+            var ordered = GeneUtility.GenesInOrder.Where(g => selectedSet.Contains(g)).ToList();
+            var activated = ordered.NonOverriddenGenes(false);
+            return activated.Sum(g => g.biostatArc);
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -110,7 +106,8 @@ namespace RandomsGeneAssistant
             var titleOffset = Text.CalcHeight("Gene Library", rect.width) + 4f;
             Text.Font = GameFont.Small;
             rect.yMin += titleOffset;
-            Widgets.Label(rect, $"total complexity: {GetSelectedTotalCpx()}, total metabolism: {GetSelectedTotalMet()}, total archite capsules: {GetSelectedTotalArchite()}");
+            var geneNum = SettingsRef.GetGeneNotIgnore().ToList().NonOverriddenGenes(false).Count;
+            Widgets.Label(rect, $"total gene number: {geneNum}, total complexity: {GetSelectedTotalCpx()}, total metabolism: {GetSelectedTotalMet()}, total archite capsules: {GetSelectedTotalArchite()}");
             GUI.color = Color.white;
             inRect.yMin += 34f + 30f;
             var zero = Vector2.zero;
